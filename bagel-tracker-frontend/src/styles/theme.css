@@ -1,0 +1,117 @@
+:root {
+    --tennis-green: #2E7D32;
+    --tennis-yellow: #FFD600;
+    --tennis-white: #F5F5F5;
+    --tennis-blue: #1565C0;
+    --tennis-red: #C62828;
+    --tennis-gray: #424242;
+  }
+  
+  body {
+    background-image: url('/images/tennis-background.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    font-family: 'Roboto', sans-serif;
+    color: var(--tennis-gray);
+    min-height: 100vh;
+  }
+  
+  .tennis-card {
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    border-top: 5px solid var(--tennis-green);
+    transition: all 0.3s ease;
+  }
+  
+  .tennis-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+  }
+  
+  .btn-tennis-primary {
+    background-color: var(--tennis-green);
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 10px 25px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-tennis-primary:hover {
+    background-color: #1B5E20;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(46, 125, 50, 0.3);
+  }
+  
+  .btn-tennis-secondary {
+    background-color: var(--tennis-white);
+    color: var(--tennis-green);
+    border: 2px solid var(--tennis-green);
+    border-radius: 30px;
+    padding: 8px 25px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-tennis-secondary:hover {
+    background-color: var(--tennis-green);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(46, 125, 50, 0.3);
+  }
+  
+  .btn-tennis-danger {
+    background-color: var(--tennis-white);
+    color: var(--tennis-red);
+    border: 2px solid var(--tennis-red);
+    border-radius: 30px;
+    padding: 8px 25px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-tennis-danger:hover {
+    background-color: var(--tennis-red);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(198, 40, 40, 0.3);
+  }
+  
+  .tennis-title {
+    color: var(--tennis-green);
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+  
+  .tennis-subtitle {
+    color: var(--tennis-gray);
+    font-weight: 500;
+  }
+  
+  .form-control {
+    border-radius: 8px;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    transition: all 0.3s ease;
+  }
+  
+  .form-control:focus {
+    border-color: var(--tennis-green);
+    box-shadow: 0 0 0 0.2rem rgba(46, 125, 50, 0.25);
+  }
+  
+  .error-message {
+    color: var(--tennis-red);
+    font-size: 0.85rem;
+    margin-top: 5px;
+  }
+  
+  .tennis-divider {
+    height: 2px;
+    background-color: var(--tennis-green);
+    opacity: 0.2;
+    margin: 20px 0;
+  }
