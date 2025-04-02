@@ -48,7 +48,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: python-app
-          path: release.zip
+          path: ./bagel-tracker-backend/release.zip
 
   deploy:
     runs-on: ubuntu-latest
@@ -62,7 +62,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: python-app
-          path: .
+          path: ./bagel-tracker-backend
 
       - name: Unzip artifact for deployment
         run: unzip release.zip
