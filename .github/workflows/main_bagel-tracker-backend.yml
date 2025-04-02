@@ -75,7 +75,7 @@ jobs:
 
       - name: Set startup command
         run: |
-          echo "python run.py" > startup.sh
+          echo "cd bagel-tracker-backend && python run.py" > startup.sh
           chmod +x startup.sh
           
       - name: 'Deploy to Azure Web App'
