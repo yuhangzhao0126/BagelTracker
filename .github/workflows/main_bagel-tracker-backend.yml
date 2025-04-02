@@ -39,7 +39,7 @@ jobs:
         run: pwd && ls -la  # Debugging step to check directory contents
         
       - name: Zip artifact for deployment
-        run: zip -r release.zip . -x "venv/*" "release.zip"
+        run: zip -r release.zip .
         
       - name: Verify zip file exists
         run: ls -la ./release.zip
