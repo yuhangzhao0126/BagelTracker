@@ -63,7 +63,10 @@ jobs:
         with:
           name: python-app
           path: ./bagel-tracker-backend
-
+          
+      - name: Verify zip file exists
+        run: ls -la ./release.zip
+        
       - name: Unzip artifact for deployment
         run: unzip release.zip
 
