@@ -65,7 +65,7 @@ jobs:
           path: ./bagel-tracker-backend
           
       - name: Verify zip file exists
-        run: ls -la ./release.zip
+        run: ls -la
         
       - name: Unzip artifact for deployment
         run: unzip release.zip
