@@ -1,6 +1,6 @@
 flask==2.0.1
 werkzeug==2.0.3
-flask-cors==3.0.10
+flask-cors==4.0
 flask-jwt-extended==4.4.4
 pyodbc==5.2.0
 python-dotenv==1.0.0
