@@ -15,7 +15,10 @@ def create_app():
     app.config['JWT_ACCESS_TOKEN_EXPIRES'] = 3600  # 1 hour
     
     # Initialize extensions
-    CORS(app)
+    CORS(app, origins=[
+    "http://localhost:3000",
+    "https://icy-mushroom-0938c2500.6.azurestaticapps.net/"
+    ], supports_credentials=True)
     JWTManager(app)
     
     # Register blueprints
