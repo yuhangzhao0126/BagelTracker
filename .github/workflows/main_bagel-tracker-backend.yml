@@ -86,4 +86,5 @@ jobs:
         with:
           app-name: 'bagel-tracker-backend'
           slot-name: 'Production'
+          startup-command: "./startup.sh"
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_387AF94A4DA746A38A7FD75033ED1C29 }}
