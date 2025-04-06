@@ -35,5 +35,5 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: bagel-tracker-backend
-          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_387AF94A4DA746A38A7FD75033ED1C29 }}
           package: bagel-tracker-backend/app.zip
