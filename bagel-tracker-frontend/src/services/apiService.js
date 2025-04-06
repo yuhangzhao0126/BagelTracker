@@ -6,6 +6,7 @@ const API_URL = 'https://bagel-tracker-backend-cvdrf5eqb9bje5hp.eastasia-01.azur
 
 const apiClient = axios.create({
   baseURL: API_URL,
+  withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
   },
