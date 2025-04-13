@@ -15,7 +15,7 @@ def create_app():
     app.config['JWT_ACCESS_TOKEN_EXPIRES'] = 3600  # 1 hour
     
     # Initialize extensions
-    CORS(app, origins=["https://icy-mushroom-0938c2500.6.azurestaticapps.net"],
+    CORS(app, origins=["https://icy-mushroom-0938c2500.6.azurestaticapps.net", "http://localhost:3001"],
          supports_credentials=True,
          allow_headers=["Content-Type", "Authorization"],
          methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"])

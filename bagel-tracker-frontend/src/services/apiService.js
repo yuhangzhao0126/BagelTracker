@@ -2,7 +2,10 @@ import axios from 'axios';
 import { getToken } from './authService';
 
 // const API_URL = 'http://localhost:8080/api'; // Update with your backend URL
-const API_URL = 'https://bagel-tracker-backend-cvdrf5eqb9bje5hp.eastasia-01.azurewebsites.net/api'; // Update with your backend URL
+// const API_URL = 'https://bagel-tracker-backend-cvdrf5eqb9bje5hp.eastasia-01.azurewebsites.net/api'; // Update with your backend URL
+const API_URL = window.location.hostname === 'localhost' 
+  ? 'http://localhost:8000/api'
+  : 'https://bagel-tracker-backend-cvdrf5eqb9bje5hp.eastasia-01.azurewebsites.net/api';
 
 const apiClient = axios.create({
   baseURL: API_URL,

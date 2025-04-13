@@ -5,12 +5,12 @@ from flask_cors import cross_origin
 auth_bp = Blueprint('auth', __name__)
 
 @auth_bp.route('/register', methods=['POST'])
-@cross_origin(
-    origins=["https://icy-mushroom-0938c2500.6.azurestaticapps.net"],
-    supports_credentials=True,
-    allow_headers=["Content-Type", "Authorization"],
-    methods=["GET", "POST", "OPTIONS"]
-)
+# @cross_origin(
+#     origins=["https://icy-mushroom-0938c2500.6.azurestaticapps.net"],
+#     supports_credentials=True,
+#     allow_headers=["Content-Type", "Authorization"],
+#     methods=["GET", "POST", "OPTIONS"]
+# )
 def register():
     """Register a new user."""
     data = request.get_json()
@@ -32,12 +32,12 @@ def register():
         return jsonify(result), 400
 
 @auth_bp.route('/login', methods=['POST'])
-@cross_origin(
-    origins=["https://icy-mushroom-0938c2500.6.azurestaticapps.net"],
-    supports_credentials=True,
-    allow_headers=["Content-Type", "Authorization"],
-    methods=["GET", "POST", "OPTIONS"]
-)
+# @cross_origin(
+#     origins=["https://icy-mushroom-0938c2500.6.azurestaticapps.net"],
+#     supports_credentials=True,
+#     allow_headers=["Content-Type", "Authorization"],
+#     methods=["GET", "POST", "OPTIONS"]
+# )
 def login():
     """Login a user."""
     data = request.get_json()
