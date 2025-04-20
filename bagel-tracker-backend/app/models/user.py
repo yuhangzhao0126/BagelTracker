@@ -41,6 +41,22 @@ class User:
             )
         return None
     
+    @staticmethod
+    def get_all_users():
+        """Fetch all users from the database."""
+        query = "SELECT user_id, name, email, created_at, is_active FROM Users"
+        result = execute_query(query)
+        return [
+            {
+                "user_id": row.user_id,
+                "name": row.name,
+                "email": row.email,
+                "created_at": row.created_at,
+                "is_active": row.is_active
+            }
+            for row in result
+        ]
+    
     def save(self):
         """Save user to database."""
         if self.user_id:

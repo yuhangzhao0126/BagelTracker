@@ -56,3 +56,13 @@ def login():
         return jsonify(result), 200
     else:
         return jsonify(result), 401
+
+@auth_bp.route('/users', methods=['GET'])
+def get_all_users():
+    """Fetch all users."""
+    from app.models.user import User
+    try:
+        users = User.get_all_users()
+        return jsonify({"success": True, "users": users}), 200
+    except Exception as e:
+        return jsonify({"success": False, "message": str(e)}), 500
