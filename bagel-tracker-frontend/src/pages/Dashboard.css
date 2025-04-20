@@ -22,3 +22,27 @@
   .text-primary {
     color: #007bff !important;
   }
+
+  /* User search styling */
+  .list-group-item {
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent;
+  }
+
+  .list-group-item:hover {
+    border-left: 3px solid #007bff;
+    background-color: rgba(0, 123, 255, 0.05);
+  }
+
+  .search-container {
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    padding: 15px;
+    margin-bottom: 20px;
+  }
+
+  .selected-user-container {
+    border-left: 4px solid #007bff;
+    background-color: rgba(0, 123, 255, 0.05);
+  }

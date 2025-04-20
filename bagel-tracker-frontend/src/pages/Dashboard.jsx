@@ -2,9 +2,11 @@ import './Dashboard.css';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { isAuthenticated, logout } from '../services/authService';
+import UserSearch from '../components/UserSearch/UserSearch';
 
 const Dashboard = () => {
   const [user, setUser] = useState(null);
+  const [selectedUser, setSelectedUser] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -24,6 +26,10 @@ const Dashboard = () => {
       }
     }
   }, [navigate]);
+
+  const handleSelectUser = (user) => {
+    setSelectedUser(user);
+  };
 
   const handleLogout = () => {
     logout();
@@ -50,7 +56,31 @@ const Dashboard = () => {
               <p className="card-text">
                 This is your personal dashboard. Here you can manage your account and access all features.
               </p>
-              {/* Add more dashboard content here */}
+              
+              {/* User Search Component */}
+              <UserSearch onSelectUser={handleSelectUser} />
+              
+              {/* Selected User */}
+              {selectedUser && (
+                <div className="mt-4 p-3 border rounded selected-user-container">
+                  <h5>Selected User</h5>
+                  <div>
+                    <strong>Name:</strong> {selectedUser.name}
+                  </div>
+                  <div>
+                    <strong>Email:</strong> {selectedUser.email}
+                  </div>
+                  <div>
+                    <strong>Created:</strong> {new Date(selectedUser.created_at).toLocaleDateString()}
+                  </div>
+                  <button 
+                    className="btn btn-sm btn-outline-secondary mt-2"
+                    onClick={() => setSelectedUser(null)}
+                  >
+                    Clear Selection
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </div>

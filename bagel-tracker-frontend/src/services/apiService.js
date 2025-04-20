@@ -46,3 +46,12 @@ export const registerUser = async (userData) => {
     throw error.response?.data || { message: 'Network error occurred' };
   }
 };
+
+export const searchUsers = async (prefix) => {
+  try {
+    const response = await apiClient.get(`/auth/users/search?prefix=${prefix}`);
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || { message: 'Network error occurred' };
+  }
+};

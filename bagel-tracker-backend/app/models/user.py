@@ -42,18 +42,36 @@ class User:
         return None
     
     @staticmethod
+    def find_by_name(name):
+        """Find a user by name."""
+        query = "SELECT * FROM Users WHERE name = ?"
+        result = execute_query(query, (name,))
+        if result:
+            user_data = result[0]
+            return User(
+                user_id=user_data.user_id,
+                name=user_data.name,
+                email=user_data.email,
+                password_hash=user_data.password_hash,
+                created_at=user_data.created_at,
+                updated_at=user_data.updated_at,
+                is_active=user_data.is_active
+            )
+        return None
+    
+    @staticmethod
     def search_users_by_prefix(prefix):
-        """Search for users whose name or email starts with the given prefix.
+        """Search for users whose name starts with the given prefix.
         Returns a maximum of 5 results.
         """
         query = """
             SELECT TOP 5 user_id, name, email, created_at, is_active 
             FROM Users 
-            WHERE name LIKE ? OR email LIKE ?
+            WHERE name LIKE ?
             ORDER BY name
         """
         search_param = f"{prefix}%"  # Add wildcard to search by prefix
-        result = execute_query(query, (search_param, search_param))
+        result = execute_query(query, (search_param,))
         return [
             {
                 "user_id": row.user_id,

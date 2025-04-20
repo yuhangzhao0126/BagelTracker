@@ -7,7 +7,7 @@ def create_tables():
     IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='Users' AND xtype='U')
     CREATE TABLE Users (
         user_id INT IDENTITY(1,1) PRIMARY KEY,
-        name NVARCHAR(100) NOT NULL,
+        name NVARCHAR(100) NOT NULL UNIQUE,
         email NVARCHAR(100) NOT NULL UNIQUE,
         password_hash NVARCHAR(255) NOT NULL,
         created_at DATETIME DEFAULT GETDATE(),
@@ -17,6 +17,9 @@ def create_tables():
     
     IF NOT EXISTS (SELECT * FROM sysindexes WHERE name='idx_users_email')
     CREATE INDEX idx_users_email ON Users(email);
+    
+    IF NOT EXISTS (SELECT * FROM sysindexes WHERE name='idx_users_name')
+    CREATE INDEX idx_users_name ON Users(name);
     """
     
     # Execute query

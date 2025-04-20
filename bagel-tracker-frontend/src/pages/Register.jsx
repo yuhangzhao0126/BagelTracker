@@ -8,7 +8,8 @@ import { login } from '../services/authService';
 const RegisterSchema = Yup.object().shape({
   name: Yup.string()
     .required('Name is required')
-    .min(2, 'Name must be at least 2 characters'),
+    .min(2, 'Name must be at least 2 characters')
+    .matches(/^[a-zA-Z0-9_]+$/, 'Username can only contain letters, numbers, and underscores'),
   email: Yup.string()
     .email('Invalid email address')
     .required('Email is required'),
@@ -56,13 +57,14 @@ const Register = () => {
                 {({ isSubmitting }) => (
                   <Form>
                     <div className="mb-3">
-                      <label htmlFor="name" className="form-label">Name</label>
+                      <label htmlFor="name" className="form-label">Username</label>
                       <Field 
                         type="text" 
                         name="name" 
                         className="form-control" 
-                        placeholder="Enter your name" 
+                        placeholder="Choose a unique username" 
                       />
+                      <small className="form-text text-muted">Username must be unique and can only contain letters, numbers, and underscores.</small>
                       <ErrorMessage name="name" component="div" className="text-danger" />
                     </div>
 

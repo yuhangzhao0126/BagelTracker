@@ -6,10 +6,15 @@ class AuthService:
     @staticmethod
     def register_user(name, email, password):
         """Register a new user."""
-        # Check if user already exists
-        existing_user = User.find_by_email(email)
-        if existing_user:
+        # Check if user email already exists
+        existing_email = User.find_by_email(email)
+        if existing_email:
             return {"success": False, "message": "Email already registered"}
+            
+        # Check if username already exists
+        existing_name = User.find_by_name(name)
+        if existing_name:
+            return {"success": False, "message": "Username already taken"}
         
         # Create new user
         password_hash = User.hash_password(password)

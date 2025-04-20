@@ -1,0 +1,45 @@
+.user-search-container {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+.search-results {
+  max-height: 300px;
+  overflow-y: auto;
+  margin-top: 10px;
+}
+
+.list-group-item {
+  transition: all 0.2s ease;
+  border-left: 3px solid transparent;
+}
+
+.list-group-item:hover {
+  border-left: 3px solid #007bff;
+  background-color: rgba(0, 123, 255, 0.05);
+}
+
+.list-group-item .badge {
+  opacity: 0.7;
+  transition: all 0.2s ease;
+}
+
+.list-group-item:hover .badge {
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+.user-search-container input::placeholder {
+  color: #aaa;
+  font-style: italic;
+  font-size: 0.9em;
+}
+
+.user-search-container h4 {
+  color: #007bff;
+  margin-bottom: 15px;
+  font-weight: 500;
+}
