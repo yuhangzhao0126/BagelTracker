@@ -1,6 +1,7 @@
 from app.utils.db import execute_query
 from passlib.hash import pbkdf2_sha256
 from app.utils.db import get_db_connection
+import pyodbc
 
 class User:
     def __init__(self, user_id=None, name=None, email=None, password_hash=None, 
@@ -138,6 +139,17 @@ class User:
                 self.user_id = result.user_id
                 
                 conn.commit()
+            except pyodbc.IntegrityError as e:
+                conn.rollback()
+                error_msg = str(e)
+                if "Violation of UNIQUE KEY constraint" in error_msg:
+                    if "idx_users_email" in error_msg:
+                        raise ValueError("Email address is already registered")
+                    elif "idx_users_name" in error_msg:
+                        raise ValueError("Username is already taken")
+                    else:
+                        raise ValueError("A user with this information already exists")
+                raise e
             except Exception as e:
                 conn.rollback()
                 raise e

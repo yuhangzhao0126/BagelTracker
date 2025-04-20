@@ -24,15 +24,35 @@ const RegisterSchema = Yup.object().shape({
 const Register = () => {
   const navigate = useNavigate();
   const [error, setError] = useState('');
+  const [fieldErrors, setFieldErrors] = useState({});
 
-  const handleSubmit = async (values, { setSubmitting }) => {
+  const handleSubmit = async (values, { setSubmitting, setFieldError }) => {
     try {
+      // Clear previous errors
+      setError('');
+      setFieldErrors({});
+      
       // Remove confirmPassword before sending to API
       const { confirmPassword, ...userData } = values;
       const response = await registerUser(userData);
-      login(response.token, response.user);
-      navigate('/dashboard');
+      
+      if (response.success) {
+        login(response.token, response.user);
+        navigate('/dashboard');
+      } else {
+        // Handle specific error messages from the backend
+        if (response.message.includes('Email already registered')) {
+          setFieldError('email', 'This email is already registered');
+          setFieldErrors(prev => ({ ...prev, email: 'This email is already registered' }));
+        } else if (response.message.includes('Username already taken')) {
+          setFieldError('name', 'This username is already taken');
+          setFieldErrors(prev => ({ ...prev, name: 'This username is already taken' }));
+        } else {
+          setError(response.message || 'Failed to register. Please try again.');
+        }
+      }
     } catch (err) {
+      // Handle general errors
       setError(err.message || 'Failed to register. Please try again.');
     } finally {
       setSubmitting(false);
@@ -54,18 +74,19 @@ const Register = () => {
                 validationSchema={RegisterSchema}
                 onSubmit={handleSubmit}
               >
-                {({ isSubmitting }) => (
+                {({ isSubmitting, errors }) => (
                   <Form>
                     <div className="mb-3">
                       <label htmlFor="name" className="form-label">Username</label>
                       <Field 
                         type="text" 
                         name="name" 
-                        className="form-control" 
+                        className={`form-control ${errors.name || fieldErrors.name ? 'is-invalid' : ''}`}
                         placeholder="Choose a unique username" 
                       />
                       <small className="form-text text-muted">Username must be unique and can only contain letters, numbers, and underscores.</small>
                       <ErrorMessage name="name" component="div" className="text-danger" />
+                      {fieldErrors.name && <div className="text-danger">{fieldErrors.name}</div>}
                     </div>
 
                     <div className="mb-3">
@@ -73,10 +94,11 @@ const Register = () => {
                       <Field 
                         type="email" 
                         name="email" 
-                        className="form-control" 
+                        className={`form-control ${errors.email || fieldErrors.email ? 'is-invalid' : ''}`}
                         placeholder="Enter your email" 
                       />
                       <ErrorMessage name="email" component="div" className="text-danger" />
+                      {fieldErrors.email && <div className="text-danger">{fieldErrors.email}</div>}
                     </div>
 
                     <div className="mb-3">

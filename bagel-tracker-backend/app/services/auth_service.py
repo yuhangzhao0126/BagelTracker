@@ -44,6 +44,9 @@ class AuthService:
                     "email": email
                 }
             }
+        except ValueError as e:
+            # Handle specific constraint violation errors
+            return {"success": False, "message": str(e)}
         except Exception as e:
             return {"success": False, "message": f"Registration failed: {str(e)}"}
             
