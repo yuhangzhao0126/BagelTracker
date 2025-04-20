@@ -2,11 +2,11 @@ import './Dashboard.css';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { isAuthenticated, logout } from '../services/authService';
-import UserSearch from '../components/UserSearch/UserSearch';
+import MatchForm from '../components/MatchForm/MatchForm';
 
 const Dashboard = () => {
   const [user, setUser] = useState(null);
-  const [selectedUser, setSelectedUser] = useState(null);
+  const [showMatchForm, setShowMatchForm] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -27,20 +27,25 @@ const Dashboard = () => {
     }
   }, [navigate]);
 
-  const handleSelectUser = (user) => {
-    setSelectedUser(user);
-  };
-
   const handleLogout = () => {
     logout();
     navigate('/login');
   };
 
+  const handleMatchRecorded = (response) => {
+    console.log('Match recorded:', response);
+    // You could add additional logic here, such as refreshing a list of matches
+  };
+
+  const toggleMatchForm = () => {
+    setShowMatchForm(!showMatchForm);
+  };
+
   return (
     <div className="container mt-5">
       <div className="row justify-content-center">
-        <div className="col-md-8">
-          <div className="card shadow-sm">
+        <div className="col-md-10">
+          <div className="card shadow-sm mb-4">
             <div className="card-body">
               <div className="d-flex justify-content-between align-items-center mb-4">
                 <h2 className="card-title text-primary mb-0">
@@ -54,35 +59,25 @@ const Dashboard = () => {
                 </button>
               </div>
               <p className="card-text">
-                This is your personal dashboard. Here you can manage your account and access all features.
+                This is your personal dashboard for BagelTracker. Here you can record tennis matches and track "bagels"!
               </p>
               
-              {/* User Search Component */}
-              <UserSearch onSelectUser={handleSelectUser} />
+              <div className="d-grid mb-4">
+                <button
+                  className="btn btn-tennis-primary border border-2 border-primary"
+                  onClick={toggleMatchForm}
+                >
+                  {showMatchForm ? 'Hide Match Form' : '🎾 Record a Tennis Match'}
+                </button>
+              </div>
               
-              {/* Selected User */}
-              {selectedUser && (
-                <div className="mt-4 p-3 border rounded selected-user-container">
-                  <h5>Selected User</h5>
-                  <div>
-                    <strong>Name:</strong> {selectedUser.name}
-                  </div>
-                  <div>
-                    <strong>Email:</strong> {selectedUser.email}
-                  </div>
-                  <div>
-                    <strong>Created:</strong> {new Date(selectedUser.created_at).toLocaleDateString()}
-                  </div>
-                  <button 
-                    className="btn btn-sm btn-outline-secondary mt-2"
-                    onClick={() => setSelectedUser(null)}
-                  >
-                    Clear Selection
-                  </button>
-                </div>
+              {showMatchForm && (
+                <MatchForm onMatchRecorded={handleMatchRecorded} />
               )}
             </div>
           </div>
+          
+          {/* Future development: Add match history section here */}
         </div>
       </div>
     </div>

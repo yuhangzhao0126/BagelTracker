@@ -55,3 +55,30 @@ export const searchUsers = async (prefix) => {
     throw error.response?.data || { message: 'Network error occurred' };
   }
 };
+
+export const recordMatch = async (matchData) => {
+  try {
+    const response = await apiClient.post('/matches', matchData);
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || { message: 'Network error occurred' };
+  }
+};
+
+export const getUserMatches = async (userId, limit = 10) => {
+  try {
+    const response = await apiClient.get(`/matches/user/${userId}?limit=${limit}`);
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || { message: 'Network error occurred' };
+  }
+};
+
+export const getAllMatches = async (limit = 50) => {
+  try {
+    const response = await apiClient.get(`/matches/all?limit=${limit}`);
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || { message: 'Network error occurred' };
+  }
+};
