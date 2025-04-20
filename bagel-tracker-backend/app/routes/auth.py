@@ -59,10 +59,21 @@ def login():
 
 @auth_bp.route('/users', methods=['GET'])
 def get_all_users():
-    """Fetch all users."""
+    """Get all users from the database."""
     from app.models.user import User
     try:
         users = User.get_all_users()
+        return jsonify({"success": True, "users": users}), 200
+    except Exception as e:
+        return jsonify({"success": False, "message": str(e)}), 500
+
+@auth_bp.route('/users/search', methods=['GET'])
+def search_users():
+    """Search for users by prefix."""
+    from app.models.user import User
+    try:
+        prefix = request.args.get('prefix', '')
+        users = User.search_users_by_prefix(prefix)
         return jsonify({"success": True, "users": users}), 200
     except Exception as e:
         return jsonify({"success": False, "message": str(e)}), 500

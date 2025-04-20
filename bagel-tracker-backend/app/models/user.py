@@ -42,16 +42,44 @@ class User:
         return None
     
     @staticmethod
+    def search_users_by_prefix(prefix):
+        """Search for users whose name or email starts with the given prefix.
+        Returns a maximum of 5 results.
+        """
+        query = """
+            SELECT TOP 5 user_id, name, email, created_at, is_active 
+            FROM Users 
+            WHERE name LIKE ? OR email LIKE ?
+            ORDER BY name
+        """
+        search_param = f"{prefix}%"  # Add wildcard to search by prefix
+        result = execute_query(query, (search_param, search_param))
+        return [
+            {
+                "user_id": row.user_id,
+                "name": row.name,
+                "email": row.email,
+                "created_at": str(row.created_at),
+                "is_active": row.is_active
+            }
+            for row in result
+        ]
+    
+    @staticmethod
     def get_all_users():
-        """Fetch all users from the database."""
-        query = "SELECT user_id, name, email, created_at, is_active FROM Users"
+        """Get all users from the database."""
+        query = """
+            SELECT user_id, name, email, created_at, is_active 
+            FROM Users
+            ORDER BY name
+        """
         result = execute_query(query)
         return [
             {
                 "user_id": row.user_id,
                 "name": row.name,
                 "email": row.email,
-                "created_at": row.created_at,
+                "created_at": str(row.created_at),
                 "is_active": row.is_active
             }
             for row in result
