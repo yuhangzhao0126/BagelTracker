@@ -26,4 +26,12 @@ def create_app():
     from app.routes.auth import auth_bp
     app.register_blueprint(auth_bp, url_prefix='/api/auth')
     
+    # Register matches blueprint
+    from app.routes.matches import matches_bp
+    app.register_blueprint(matches_bp, url_prefix='/api/matches')
+    
+    # Register ping blueprint
+    from app.routes.ping import ping_bp
+    app.register_blueprint(ping_bp, url_prefix='/api/ping')
+    
     return app

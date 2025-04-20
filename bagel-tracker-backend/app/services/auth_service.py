@@ -1,6 +1,7 @@
 from app.models.user import User
 from flask_jwt_extended import create_access_token
 import datetime
+import json
 
 class AuthService:
     @staticmethod
@@ -28,9 +29,10 @@ class AuthService:
         try:
             new_user.save()
             
-            # Generate JWT token
+            # Generate JWT token - using string identity
+            identity = {"user_id": new_user.user_id, "email": email, "name": name}
             token = create_access_token(
-                identity={"user_id": new_user.user_id, "email": email},
+                identity=json.dumps(identity),
                 expires_delta=datetime.timedelta(hours=1)
             )
             
@@ -58,9 +60,10 @@ class AuthService:
         if not user or not User.verify_password(user.password_hash, password):
             return {"success": False, "message": "Invalid email or password"}
         
-        # Generate JWT token
+        # Generate JWT token - using string identity
+        identity = {"user_id": user.user_id, "email": user.email, "name": user.name}
         token = create_access_token(
-            identity={"user_id": user.user_id, "email": user.email},
+            identity=json.dumps(identity),
             expires_delta=datetime.timedelta(hours=1)
         )
         

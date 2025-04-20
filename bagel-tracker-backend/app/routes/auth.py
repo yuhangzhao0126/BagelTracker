@@ -45,7 +45,7 @@ def login():
     # Validate input
     if not data or not all(k in data for k in ('email', 'password')):
         return jsonify({"success": False, "message": "Missing required fields"}), 400
-    
+
     # Login user
     result = AuthService.login_user(
         email=data.get('email'),
